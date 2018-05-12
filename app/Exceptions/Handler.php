@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use App\Traits\ApiResponser;
+use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -84,6 +85,14 @@ class Handler extends ExceptionHandler
 
         if($exception instanceof HttpException){
             return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
+        }
+
+        if($exception instanceof QueryException){
+            $codigo = $exception->errorInfo[1];
+
+            if ($codigo == 1451) {
+                return $this->errorResponse("No se puede eliminar el recurso porque está relacionado con algún otro existente.", 409);
+            }
         }
 
         return parent::render($request, $exception);
