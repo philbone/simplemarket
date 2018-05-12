@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Buyer;
 use App\Buyer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class BuyerController extends Controller
+class BuyerController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +20,7 @@ class BuyerController extends Controller
 
         return response()->json(['data' => $compradores], 200);
     }
-   
+
     /**
      * Display the specified resource.
      *
@@ -33,5 +34,5 @@ class BuyerController extends Controller
         return response()->json(['data' => $comprador], 200);
     }
 
-    
+
 }

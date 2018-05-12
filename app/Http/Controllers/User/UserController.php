@@ -5,8 +5,9 @@ namespace App\Http\Controllers\User;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -93,7 +94,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $reglas = [            
+        $reglas = [
             'email' => 'email|unique:users,email,' . $user->id,
             'password' => 'min:6|confirmed',
             'admin' => 'in:' . User::USUARIO_ADMINISTRADOR . ',' . User::USUARIO_REGULAR,
@@ -107,7 +108,7 @@ class UserController extends Controller
 
         if ($request->has('email') && $user->email != $request->email) {
             $user->verified = User::USUARIO_NO_VERIFICADO;
-            $user->verification_token = User::generarVerificationToken();            
+            $user->verification_token = User::generarVerificationToken();
             $user->email = $request->email;
         }
 
