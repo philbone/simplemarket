@@ -18,17 +18,7 @@ class UserController extends ApiController
     {
         $usuarios = User::all();
 
-        return response()->json(['data' => $usuarios], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->showAll($usuarios);
     }
 
     /**
@@ -55,7 +45,7 @@ class UserController extends ApiController
 
         $usuario = User::create($campos);
 
-        return response()->json(['data' => $usuario], 201);
+        return $this->showOne($usuario, 201);
 
     }
 
@@ -69,18 +59,7 @@ class UserController extends ApiController
     {
         $usuario = User::findOrFail($id);
 
-        return response()->json(['data' => $usuario], 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $this->showOne($usuario);
     }
 
     /**
@@ -131,7 +110,7 @@ class UserController extends ApiController
 
         $user->save();
 
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
 
 
     }
@@ -148,6 +127,6 @@ class UserController extends ApiController
 
         $user->delete();
 
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
     }
 }
