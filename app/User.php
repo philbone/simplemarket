@@ -32,6 +32,34 @@ class User extends Authenticatable
     ];
 
     /**
+    * Convierte los caracteres del atributo name a minúsculas.
+    * @param string   $valor el nombre del usuario.
+    */
+    public function setNameAttribute($valor)
+    {
+      $this->attributes['name'] = strtolower($valor);
+    }
+
+    /**
+    * Devuelve el atributo name con todas sus palabras capitalizadas.
+    * @param string   $valor el email del usuario.
+    * @return string
+    */
+    public function getNameAttribute($valor)
+    {
+      return ucwords($valor);
+    }
+
+    /**
+    * Convierte los caracteres del atributo email a minúsculas.
+    * @param string   $valor el email del usuario.
+    */
+    public function setEmailAttribute($valor)
+    {
+      $this->attributes['email'] = strtolower($valor);
+    }
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
