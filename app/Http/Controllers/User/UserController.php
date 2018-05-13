@@ -5,8 +5,9 @@ namespace App\Http\Controllers\User;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +18,7 @@ class UserController extends Controller
     {
         $usuarios = User::all();
 
-        return response()->json(['data' => $usuarios], 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->showAll($usuarios);
     }
 
     /**
@@ -54,7 +45,7 @@ class UserController extends Controller
 
         $usuario = User::create($campos);
 
-        return response()->json(['data' => $usuario], 201);
+        return $this->showOne($usuario, 201);
 
     }
 
@@ -64,22 +55,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $usuario = User::findOrFail($id);
-
-        return response()->json(['data' => $usuario], 200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $this->showOne($user);
     }
 
     /**
@@ -89,11 +67,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::findOrFail($id);
-
-        $reglas = [            
+        $reglas = [
             'email' => 'email|unique:users,email,' . $user->id,
             'password' => 'min:6|confirmed',
             'admin' => 'in:' . User::USUARIO_ADMINISTRADOR . ',' . User::USUARIO_REGULAR,
@@ -107,7 +83,7 @@ class UserController extends Controller
 
         if ($request->has('email') && $user->email != $request->email) {
             $user->verified = User::USUARIO_NO_VERIFICADO;
-            $user->verification_token = User::generarVerificationToken();            
+            $user->verification_token = User::generarVerificationToken();
             $user->email = $request->email;
         }
 
@@ -117,7 +93,7 @@ class UserController extends Controller
 
         if ($request->has('admin')) {
             if (!$user->esVerificado()) {
-                return response()->json(['error' => 'Unicamente los usuarios verificados pueden cambiar su valor de aministrador', 'code' => 409], 409);
+                return $this->errorResponse('Unicamente los usuarios verificados pueden cambiar su valor de aministrador', 409);
             }
 
             $user->admin = $request->admin;
@@ -125,12 +101,12 @@ class UserController extends Controller
         }
 
         if (!$user->isDirty()) {
-            return response()->json(['error' => 'Se debe especificar al menos un valor diferente para actualizar', 'code' => 422], 422);
+            return $this->errorResponse('Se debe especificar al menos un valor diferente para actualizar', 422);
         }
 
         $user->save();
 
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
 
 
     }
@@ -141,12 +117,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = User::findOrFail($id);
-
         $user->delete();
 
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
     }
 }
