@@ -32,14 +32,14 @@ class CategoryController extends ApiController
     }
 
     /**
-     * Display the specified resource.
+     * Despliega el recurso especificado.
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
     {
-        //
+        return $this->showOne($category);
     }
 
     /**
