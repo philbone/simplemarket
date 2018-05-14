@@ -21,14 +21,23 @@ class CategoryController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena una categoría recién creada.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+
+        $category = Category::create($request->all());
+
+        return $this->showOne($category, 201);
     }
 
     /**
