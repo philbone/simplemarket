@@ -52,7 +52,7 @@ class CategoryController extends ApiController
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza la categoria almacenada.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Category  $category
@@ -60,7 +60,18 @@ class CategoryController extends ApiController
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $category->fill($request->only([
+            'name',
+            'description',
+        ]));
+
+        if ($category->isClean()) {
+            return $this->errorResponse('Debe especificar al menos un valor diferente para actualizar', 422);
+        }
+
+        $category->save();
+
+        return $this->showOne($category);
     }
 
     /**
