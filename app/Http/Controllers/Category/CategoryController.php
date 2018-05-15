@@ -75,13 +75,15 @@ class CategoryController extends ApiController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remueve la categoría especificada.
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return $this->showOne($category);
     }
 }
