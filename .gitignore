@@ -12,5 +12,4 @@ npm-debug.log
 yarn-error.log
 apirestful.sublime-project
 apirestful.sublime-workspace
-.travis.yml
 .env
