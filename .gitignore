@@ -2,7 +2,7 @@
 /public/hot
 /public/storage
 /storage/*.key
-/test
+/tests
 /.idea
 /.vscode
 /.vagrant
