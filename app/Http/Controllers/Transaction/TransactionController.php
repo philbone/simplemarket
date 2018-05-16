@@ -21,13 +21,13 @@ class TransactionController extends ApiController
     }
 
     /**
-     * Display the specified resource.
+     * Despliega la transacción especificada.
      *
      * @param  \App\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
     public function show(Transaction $transaction)
     {
-        //
+        return $this->showOne($transaction);
     }
 }
