@@ -4,7 +4,6 @@ os:
 language: php
 
 php:
-  - '7.0'
   - '7.1'
   - '7.2'
 
@@ -16,4 +15,3 @@ before_script:
   - php artisan migrate
   - php artisan db:seed
   - ls
-
