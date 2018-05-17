@@ -7,6 +7,7 @@ php:
   - '7.1'
 
 before_script:
+  - cp .env.travis .env
   - mysql -e "create database IF NOT EXISTS apirest;" -uroot
   - php artisan key:generate
   - php artisan migrate
