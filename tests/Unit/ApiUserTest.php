@@ -37,7 +37,7 @@ class ApiUserTest extends TestCase
      */
     public function testGetUser404()
     {
-        $stringFakeId = str_random(3);
+        $stringFakeId = $this::fakeAlfaId(8, 'capriduque');
         $numericFakeId = mt_rand(10000, 99999);
 
         echo $stringFakeId;

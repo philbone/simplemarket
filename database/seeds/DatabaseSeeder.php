@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
 
         $cantidadUsuarios = 100;
         $cantidadCategorias = 30;
-        $cantidadProductos = 500;
-        $cantidadTransacciones = 1000;
+        $cantidadProductos = 250;
+        $cantidadTransacciones = 500;
 
         factory(User::class, $cantidadUsuarios)->create();
         factory(Category::class, $cantidadCategorias)->create();
