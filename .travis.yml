@@ -6,7 +6,7 @@ language: php
 php:
   - '7.1'
 
-before_script:  - 
+before_script:
   - cp .env.travis .env
   - mysql -e "create database IF NOT EXISTS apirest;" -uroot
   - composer self-update
