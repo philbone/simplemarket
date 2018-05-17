@@ -19,7 +19,7 @@ class ApiUserTest extends TestCase
         $responseAll
             ->assertStatus($this::HTTP_OK)
             ->assertJsonFragment(['data'])
-            ->assertJsonCount(1000, 'data');
+            ->assertJsonCount(100, 'data');
 
 
         $responseOne = $this->json('GET', "/users/{$trueIdUser}");
