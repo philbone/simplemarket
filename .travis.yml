@@ -5,13 +5,13 @@ language: php
 
 php:
   - '7.1'
+  - '7.2'
 
 before_script:
   - cp .env.travis .env
   - mysql -e "create database IF NOT EXISTS apirest;" -uroot
-  - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
   - php artisan db:seed
-
+  - ls
