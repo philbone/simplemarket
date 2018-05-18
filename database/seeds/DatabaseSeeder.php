@@ -19,16 +19,16 @@ class DatabaseSeeder extends Seeder
     	DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
         User::truncate();
-        Category::truncate();        
+        Category::truncate();
         Product::truncate();
-        Transaction::truncate();         
+        Transaction::truncate();
 
-        DB::table('category_product')->truncate();            
+        DB::table('category_product')->truncate();
 
-        $cantidadUsuarios = 1000;
+        $cantidadUsuarios = 100;
         $cantidadCategorias = 30;
-        $cantidadProductos = 1000;        
-        $cantidadTransacciones = 1000;
+        $cantidadProductos = 250;
+        $cantidadTransacciones = 500;
 
         factory(User::class, $cantidadUsuarios)->create();
         factory(Category::class, $cantidadCategorias)->create();
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         		$producto->categories()->attach($categorias);
         	}
         );
-        
+
         factory(Transaction::class, $cantidadTransacciones)->create();
 
     }

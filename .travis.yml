@@ -1,3 +1,17 @@
+os:
+  - linux
+
 language: php
+
 php:
   - '7.1'
+  - '7.1.3'
+  - '7.2'
+
+before_script:
+  - cp .env.travis .env
+  - mysql -e "create database IF NOT EXISTS apirest;" -uroot
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate
+  - php artisan db:seed
